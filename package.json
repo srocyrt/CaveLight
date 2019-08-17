@@ -1,0 +1,118 @@
+{
+    "name": "cave-light",
+    "version": "0.0.1",
+    "description": "A 2D platformer using Phaser 3",
+    "author": "SroCyrT",
+    "homepage": "https://github.com/srocyrt/CaveLight",
+    "scripts": {
+        "start": "webpack-dev-server --mode development --env.development",
+        "build": "webpack --mode production --env.production",
+        "deploy": "yarn build --env.ghpages && yarn gh-pages && rm -rf ./gh-pages",
+        "lint": "eslint ./src/**/**.js",
+        "get-git": "(which git)",
+        "gh-pages": "gh-pages --dist gh-pages",
+        "pretty": "npx eslint --fix \"src/**/*.js\"",
+        "precommit": "yarn pretty"
+    },
+    "keywords": [
+        "Phaser",
+        "Phaser 3",
+        "webpack",
+        "webpack 4",
+        "game development",
+        "boilerplate",
+        "scaffold",
+        "prettier",
+        "game jam"
+    ],
+    "license": "MIT",
+    "babel": {
+        "presets": [
+            "@babel/preset-env",
+            "@babel/preset-react"
+        ],
+        "plugins": [
+            [
+                "@babel/plugin-proposal-decorators",
+                {
+                    "legacy": true
+                }
+            ],
+            "@babel/plugin-proposal-class-properties"
+        ]
+    },
+    "importSort": {
+        ".js, .jsx, .es6, .es": {
+            "parser": "babylon",
+            "style": "module"
+        },
+        ".ts, .tsx": {
+            "parser": "typescript",
+            "style": "module"
+        }
+    },
+    "dependencies": {
+        "lodash": "^4.17.15",
+        "machina": "^4.0.2",
+        "phaser": "3.19.0",
+        "phaser-animated-tiles": "2.0.2"
+    },
+    "devDependencies": {
+        "@babel/core": "7.5.5",
+        "@babel/plugin-proposal-class-properties": "7.5.5",
+        "@babel/plugin-proposal-decorators": "7.4.4",
+        "@babel/preset-env": "7.5.5",
+        "@babel/preset-react": "7.0.0",
+        "@babel/runtime": "7.5.5",
+        "add": "2.0.6",
+        "babel-eslint": "10.0.2",
+        "babel-jest": "^24.9.0",
+        "babel-loader": "8.0.6",
+        "babel-plugin-lodash": "^3.3.4",
+        "browser-sync": "2.26.7",
+        "browser-sync-webpack-plugin": "2.2.2",
+        "bs-eslint-message": "0.0.3",
+        "chalk": "^2.4.2",
+        "chalk-table": "^1.0.2",
+        "clean-webpack-plugin": "3.0.0",
+        "copy-webpack-plugin": "5.0.4",
+        "css-loader": "3.2.0",
+        "es6-plato": "1.2.2",
+        "eslint": "^6.1.0",
+        "eslint-plugin-import": "2.18.2",
+        "eslint-plugin-prettier": "3.1.0",
+        "eslint-plugin-react": "7.14.3",
+        "esm": "^3.2.25",
+        "expose-loader": "0.7.5",
+        "file-loader": "4.2.0",
+        "gh-pages": "2.1.1",
+        "globby": "^10.0.1",
+        "html-webpack-plugin": "3.2.0",
+        "husky": "^3.0.3",
+        "imagemin": "^7.0.0",
+        "imagemin-jpegtran": "^6.0.0",
+        "imagemin-pngquant": "^8.0.0",
+        "import-sort-style-module": "6.0.0",
+        "jest": "^24.9.0",
+        "json-loader": "0.5.7",
+        "lodash-webpack-plugin": "^0.11.5",
+        "moment": "^2.24.0",
+        "multimeter": "^0.1.1",
+        "p-iteration": "^1.1.8",
+        "polybooljs": "^1.2.0",
+        "prettier": "1.18.2",
+        "prettier-check": "^2.0.0",
+        "prettier-eslint": "9.0.0",
+        "raw-loader": "3.1.0",
+        "regenerator-runtime": "^0.13.3",
+        "style-loader": "1.0.0",
+        "tile-extruder": "^2.0.1",
+        "uglifyjs-webpack-plugin": "^2.2.0",
+        "url-loader": "2.1.0",
+        "webpack": "^4.39.2",
+        "webpack-bundle-analyzer": "3.4.1",
+        "webpack-cli": "3.3.6",
+        "webpack-dev-server": "^3.8.0",
+        "yarn": "1.17.3"
+    }
+}
