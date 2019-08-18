@@ -1,10 +1,13 @@
 import Phaser from 'phaser';
+import { GAME_CONST } from './game_const';
+import { LoadScene } from './scenes/load_scene';
+import { GameScene } from './scenes/game_scene';
 
 let config = {
-  width: 600,
-  height: 400,
+  width: GAME_CONST.CONFIGS.GAME_WIDTH,
+  height: GAME_CONST.CONFIGS.GAME_HEIGHT,
   zoom: 3,
-  scene: [LoadScene, MenuScene, GameScene],
+  scene: [LoadScene, GameScene],
   render: {
     pixelArt: true
   },
@@ -13,8 +16,8 @@ let config = {
     arcade: {
       gravity: {
         y: 200
-      },
-      debug: true
+      }
+      //debug: true
     }
   }
 };

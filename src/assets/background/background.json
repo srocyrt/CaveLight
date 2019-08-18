@@ -1,0 +1,82 @@
+{
+    "frames": [
+        {
+            "filename": "sky",
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 384,
+                "h": 216
+            },
+            "parallax": {
+                "scale": 0,
+                "zindex": -6
+            }
+        },
+        {
+            "filename": "clouds_front",
+            "frame": {
+                "x": 384,
+                "y": 0,
+                "w": 384,
+                "h": 216
+            },
+            "parallax": {
+                "scale": 0.7,
+                "zindex": -1
+            }
+        },
+        {
+            "filename": "clouds_mid",
+            "frame": {
+                "x": 768,
+                "y": 0,
+                "w": 384,
+                "h": 216
+            },
+            "parallax": {
+                "scale": 0.5,
+                "zindex": -3
+            }
+        },
+        {
+            "filename": "far_mountains",
+            "frame": {
+                "x": 0,
+                "y": 216,
+                "w": 384,
+                "h": 216
+            },
+            "parallax": {
+                "scale": 0.2,
+                "zindex": -5
+            }
+        },
+        {
+            "filename": "grassy_mountains",
+            "frame": {
+                "x": 384,
+                "y": 216,
+                "w": 384,
+                "h": 216
+            },
+            "parallax": {
+                "scale": 0.3,
+                "zindex": -4
+            }
+        },
+        {
+            "filename": "hill",
+            "frame": {
+                "x": 768,
+                "y": 216,
+                "w": 384,
+                "h": 216
+            },
+            "parallax": {
+                "scale": 0.6,
+                "zindex": -2
+            }
+        }
+    ]
+}
