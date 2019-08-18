@@ -1,9 +1,9 @@
 import { stateFactory } from './state_factory';
 
 export class StateMachine {
-  constructor(scene, creature) {
+  constructor(scene, owner) {
     this.scene = scene;
-    this.creature = creature;
+    this.owner = owner;
     this.stateSet = new Set();
     this.transitionList = new Map();
   }
@@ -14,7 +14,7 @@ export class StateMachine {
           `Error: Trying initialize a FSM with unknown state. in state_machine.js `
         );
     }
-    this.state = stateFactory.create(initialState, this.creature);
+    this.state = stateFactory.create(initialState, this.owner);
     this.state.enter();
   }
   addState(stateName) {
@@ -34,11 +34,10 @@ export class StateMachine {
     }
   }
   update() {
-    // try to transition
     for (let [to, onTransition] of this.transitionList.get(this.state.name)) {
       if (onTransition(this.input)) {
         this.state.exit();
-        this.state = stateFactory.create(to, this.creature);
+        this.state = stateFactory.create(to, this.owner);
         this.state.enter();
       }
     }

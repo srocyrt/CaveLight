@@ -15,9 +15,9 @@ let config = {
     default: 'arcade',
     arcade: {
       gravity: {
-        y: 200
-      }
-      //debug: true
+        y: 500
+      },
+      debug: process.env.NODE_ENV != 'production'
     }
   }
 };

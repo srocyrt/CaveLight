@@ -6,6 +6,9 @@ import { FacingFSM } from './behaviors/facing_fsm';
 export class Adventurer extends Creature {
   constructor(scene, x, y) {
     super(scene, x, y, GAME_CONST.CREATURES.ADVENTURER);
+    // temporary solution:
+    this.body.setSize(20, 36);
+    this.attackZone = [];
     this.behaviorFSM = new AdventurerFSM(scene, this);
     this.facingFSM = new FacingFSM(scene, this);
   }

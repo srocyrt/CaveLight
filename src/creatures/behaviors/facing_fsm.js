@@ -2,8 +2,8 @@ import { StateMachine } from './state_machine';
 import { GAME_CONST } from '../../game_const';
 
 export class FacingFSM extends StateMachine {
-  constructor(scene, creature) {
-    super(scene, creature);
+  constructor(scene, owner) {
+    super(scene, owner);
     this.createInput();
     this.addState(GAME_CONST.STATES.FACING_RIGHT);
     this.addState(GAME_CONST.STATES.FACING_LEFT);

@@ -59,7 +59,7 @@ export class LoadScene extends Phaser.Scene {
     this.anims.create({
       key: `${GAME_CONST.CREATURES.ADVENTURER}_${GAME_CONST.ANIMATIONS.RUN}`,
       frames: this.anims.generateFrameNames(GAME_CONST.CREATURES.ADVENTURER, {
-        prefix: 'adventurer-run-0',
+        prefix: 'adventurer-run3-0',
         start: 0,
         end: 5
       }),

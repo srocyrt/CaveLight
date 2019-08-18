@@ -2,11 +2,11 @@ import { State } from './state';
 import { GAME_CONST } from '../../game_const';
 
 export class FacingLeftState extends State {
-  constructor(stateName, creature) {
-    super(stateName, creature);
+  constructor(stateName, owner) {
+    super(stateName, owner);
   }
   enter() {
-    this.creature.flipX = true;
+    this.owner.flipX = true;
   }
   update() {}
   exit() {}

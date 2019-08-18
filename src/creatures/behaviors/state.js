@@ -1,9 +1,9 @@
 export class State {
-  constructor(name, creature) {
+  constructor(name, owner) {
     this.name = name;
-    this.creature = creature;
+    this.owner = owner;
     if (process.env.NODE_ENV !== 'production') {
-      console.debug(`Create ${this.name} State`);
+      // console.debug(`Create ${this.name} State`);
     }
   }
 }

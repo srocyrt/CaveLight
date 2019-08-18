@@ -18,14 +18,14 @@ class StateFacotry {
     this.stateList.set(GAME_CONST.STATES.FACING_RIGHT, FacingRightState);
     this.stateList.set(GAME_CONST.STATES.FACING_LEFT, FacingLeftState);
   }
-  create(stateName, creature) {
+  create(stateName, owner) {
     if (process.env.NODE_ENV !== 'production') {
       if (!this.stateList.has(stateName)) {
         const name = stateName.charAt(0).toUpperCase() + stateName.substring(1);
         console.debug(`Error: Trying to create ${name}State.`);
       }
     }
-    return new (this.stateList.get(stateName))(stateName, creature);
+    return new (this.stateList.get(stateName))(stateName, owner);
   }
 }
 

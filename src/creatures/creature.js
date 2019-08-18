@@ -1,4 +1,4 @@
-export class Creature extends Phaser.Physics.Arcade.Sprite {
+export class Creature extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture) {
     super(scene, x, y, texture);
     this.scene = scene;

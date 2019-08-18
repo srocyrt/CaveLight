@@ -30,5 +30,9 @@ export const GAME_CONST = {
     FALL: 'fall',
     FACING_RIGHT: 'facing_right',
     FACING_LEFT: 'facing_left'
+  },
+  ADVENTURER_CONST: {
+    DAMPING: 0.7,
+    ACCELERATION: 800
   }
 };

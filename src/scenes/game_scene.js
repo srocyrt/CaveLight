@@ -26,7 +26,7 @@ export class GameScene extends Phaser.Scene {
     // Add collider
     //this.adventurer.setCollideWorldBounds(true);
     this.physics.add.collider(this.adventurer, layerBot);
-    this.physics.add.collider(this.blue, layerBot);
+    //this.physics.add.collider(this.blue, layerBot);
     // this.adventurer.body.setCollideWorldBounds(true);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -36,22 +36,10 @@ export class GameScene extends Phaser.Scene {
     // parallax scrolling effect
     this.backgroundList.forEach(element => element.update());
 
-    this.blue.update();
+    //this.blue.update();
     this.adventurer.update();
     // this.adventurer.update( this.cursors );
     // 撞邊界會抖動
-    if (this.cursors.left.isDown) {
-      this.adventurer.setVelocityX(-80);
-    }
-    if (this.cursors.right.isDown) {
-      this.adventurer.setVelocityX(80);
-    }
-    if (this.cursors.up.isDown) {
-      this.adventurer.setVelocityY(-160);
-    }
-    if (this.cursors.down.isDown) {
-      this.adventurer.setVelocityY(160);
-    }
   }
   createBackground() {
     let texture = this.textures.get('background');
@@ -69,8 +57,8 @@ export class GameScene extends Phaser.Scene {
   }
   createCreature() {
     this.adventurer = new Adventurer(this, 100, 100);
-    this.blue = new SlimeBlue(this, 150, 100);
+    //this.blue = new SlimeBlue(this, 150, 100);
     this.creatureList.push(this.adventurer);
-    this.creatureList.push(this.blue);
+    //this.creatureList.push(this.blue);
   }
 }
