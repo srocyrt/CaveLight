@@ -2,7 +2,7 @@ export const GAME_CONST = {
   DEBUG: true,
   CONFIGS: {
     GAME_WIDTH: 384,
-    GAME_HEIGHT: 216
+    GAME_HEIGHT: 192 //216
   },
   SCENES: {
     LOAD: 'loadScene',
@@ -33,6 +33,6 @@ export const GAME_CONST = {
   },
   ADVENTURER_CONST: {
     DAMPING: 0.7,
-    ACCELERATION: 800
+    ACCELERATION: 700
   }
 };

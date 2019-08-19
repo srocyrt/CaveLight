@@ -8,10 +8,13 @@ export class FallState extends State {
   enter() {
     this.owner.playAnimation(GAME_CONST.ANIMATIONS.FALL);
   }
-  update() {
-    const sign = this.owner.flipX ? -1 : 1;
-    this.owner.body.velocity.x +=
-      (sign * GAME_CONST.ADVENTURER_CONST.ACCELERATION) / 10;
+  update(input) {
+    let acceleration = 0;
+    if (input.cursors.left.isDown || input.cursors.right.isDown) {
+      const sign = this.owner.flipX ? -1 : 1;
+      acceleration = sign * GAME_CONST.ADVENTURER_CONST.ACCELERATION;
+    }
+    this.owner.body.velocity.x += acceleration / 10;
     this.owner.body.velocity.x *= GAME_CONST.ADVENTURER_CONST.DAMPING;
   }
   exit() {}

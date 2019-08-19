@@ -18,14 +18,22 @@ export class AdventurerFSM extends StateMachine {
       return false;
     });
     this.addTransition(GAME_CONST.STATES.RUN, GAME_CONST.STATES.JUMP, input => {
-      if (input.cursors.space.isDown || input.lastSpace < 200) return true;
+      if (
+        (input.blocked.down || input.lastOnGround < 100) &&
+        (input.cursors.space.isDown || input.lastJump < 100)
+      )
+        return true;
       return false;
     });
     this.addTransition(
       GAME_CONST.STATES.IDLE,
       GAME_CONST.STATES.JUMP,
       input => {
-        if (input.cursors.space.isDown || input.lastSpace < 200) return true;
+        if (
+          (input.blocked.down || input.lastOnGround < 100) &&
+          (input.cursors.space.isDown || input.lastJump < 100)
+        )
+          return true;
         return false;
       }
     );
@@ -58,20 +66,45 @@ export class AdventurerFSM extends StateMachine {
         return true;
       return false;
     });
-    this.init(GAME_CONST.STATES.IDLE);
+    this.init(GAME_CONST.STATES.FALL);
   }
   createInput() {
+    // creature.flipX update
     this.input = {
       cursors: this.scene.cursors,
       blocked: this.owner.body.blocked,
-      lastSpace: 200 // < 200ms
+      lastJump: 1000, // < 200ms
+      lastOnGround: 1000
     };
-    this.tween = this.scene.tweens.add({
+    // lastSpace
+    this.lastJumpTimer = this.scene.tweens.add({
       targets: this.input,
-      lastSpace: { from: 1, to: 200 },
-      duration: 200
+      lastJump: { from: 1, to: 1000 },
+      duration: 1000
     });
-    this.tween.pause();
-    this.scene.cursors.space.on('up', () => console.log(this.tween.restart()));
+    this.lastJumpTimer.pause();
+    this.scene.cursors.space.on('up', () => this.lastJumpTimer.restart());
+    // lastOnGround
+    this.onGroundBefore = false;
+    this.onGroundNow = false;
+    this.lastOnGroundTimer = this.scene.tweens.add({
+      targets: this.input,
+      lastOnGround: { from: 1, to: 1000 },
+      duration: 1000
+    });
+    this.lastOnGroundTimer.pause();
+    window.test = this;
+  }
+  updateInput() {
+    // lastOnGround
+    this.onGroundNow = this.input.blocked.down;
+    if (!this.onGroundBefore && this.onGroundNow) {
+      this.input.lastOnGround = 0;
+    }
+    if (this.onGroundBefore && !this.onGroundNow) {
+      this.lastOnGroundTimer.restart();
+    }
+    this.onGroundBefore = this.onGroundNow;
+    //
   }
 }

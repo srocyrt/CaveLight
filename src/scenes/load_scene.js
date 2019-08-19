@@ -8,6 +8,8 @@ import slime_blue_JSON from '../assets/sprite/slime_blue.json';
 import tiles2x_PNG from '../assets/tile/tiles2x.png';
 import tiles2x_transparent_PNG from '../assets/tile/tiles2x_transparent.png';
 import level_0_JSON from '../assets/level/level_0.json';
+import tiles_PNG from '../assets/tile/tiles.png';
+import tutorial_JSON from '../assets/level/tutorial.json';
 
 export class LoadScene extends Phaser.Scene {
   constructor() {
@@ -39,6 +41,9 @@ export class LoadScene extends Phaser.Scene {
     this.load.image('tiles2x', tiles2x_PNG);
     this.load.image('tiles2x_transparent', tiles2x_transparent_PNG);
     this.load.tilemapTiledJSON('level_0', level_0_JSON);
+
+    this.load.image('tiles', tiles_PNG);
+    this.load.tilemapTiledJSON('tutorial', tutorial_JSON);
   }
 
   create() {
@@ -48,7 +53,7 @@ export class LoadScene extends Phaser.Scene {
     this.anims.create({
       key: `${GAME_CONST.CREATURES.ADVENTURER}_${GAME_CONST.ANIMATIONS.IDLE}`,
       frames: this.anims.generateFrameNames(GAME_CONST.CREATURES.ADVENTURER, {
-        prefix: 'adventurer-idle-0',
+        prefix: 'adventurer-idle-2-0',
         start: 0,
         end: 3
       }),

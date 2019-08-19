@@ -34,6 +34,7 @@ export class StateMachine {
     }
   }
   update() {
+    this.updateInput();
     for (let [to, onTransition] of this.transitionList.get(this.state.name)) {
       if (onTransition(this.input)) {
         this.state.exit();
@@ -41,6 +42,6 @@ export class StateMachine {
         this.state.enter();
       }
     }
-    this.state.update();
+    this.state.update(this.input);
   }
 }

@@ -30,4 +30,5 @@ export class FacingFSM extends StateMachine {
       cursors: this.scene.cursors
     };
   }
+  updateInput() {}
 }

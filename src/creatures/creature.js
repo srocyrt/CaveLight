@@ -10,4 +10,7 @@ export class Creature extends Phaser.GameObjects.Sprite {
   playAnimation(key) {
     return this.anims.play(`${this.creature}_${key}`);
   }
+  pauseAnimation(key) {
+    return this.anims.stop();
+  }
 }

@@ -3,7 +3,7 @@ export class State {
     this.name = name;
     this.owner = owner;
     if (process.env.NODE_ENV !== 'production') {
-      // console.debug(`Create ${this.name} State`);
+      console.debug(`Create ${this.name} State`);
     }
   }
 }
