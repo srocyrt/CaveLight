@@ -36,10 +36,10 @@ export class StateMachine {
   update() {
     this.updateInput();
     for (let [to, onTransition] of this.transitionList.get(this.state.name)) {
-      if (onTransition(this.input)) {
+      if (onTransition(this.input, this.state)) {
         this.state.exit();
         this.state = stateFactory.create(to, this.owner);
-        this.state.enter();
+        this.state.enter(this.input);
       }
     }
     this.state.update(this.input);

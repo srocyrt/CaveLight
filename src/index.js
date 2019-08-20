@@ -11,17 +11,21 @@ let config = {
   render: {
     pixelArt: true
   },
+  banner: false,
   physics: {
     default: 'arcade',
     arcade: {
       gravity: {
         y: 700
-      }
-      // debug: process.env.NODE_ENV != 'production'
+      },
+      debug: GAME_CONST.DEBUG && process.env.NODE_ENV != 'production'
     }
   }
 };
 
 window.onload = function() {
-  window.game = new Phaser.Game(config);
+  let game = new Phaser.Game(config);
+  if (process.env.NODE_ENV !== 'production') {
+    window.game = game;
+  }
 };

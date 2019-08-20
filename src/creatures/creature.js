@@ -8,9 +8,12 @@ export class Creature extends Phaser.GameObjects.Sprite {
     scene.physics.world.enableBody(this);
   }
   playAnimation(key) {
-    return this.anims.play(`${this.creature}_${key}`);
+    return this.anims.play(`${this.creature}_${key}`, true);
   }
   pauseAnimation(key) {
-    return this.anims.stop();
+    return this.anims.pause();
+  }
+  nextAnimationFrame() {
+    return this.anims.nextFrame();
   }
 }

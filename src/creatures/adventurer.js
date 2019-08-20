@@ -16,4 +16,9 @@ export class Adventurer extends Creature {
     this.behaviorFSM.update();
     this.facingFSM.update();
   }
+  //
+  takeDamage() {
+    this.onTakingDamage = true;
+  }
+  // slow mo
 }

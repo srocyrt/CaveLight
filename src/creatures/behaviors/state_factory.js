@@ -2,6 +2,8 @@ import { IdleState } from './idle_state';
 import { RunState } from './run_state';
 import { JumpState } from './jump_state';
 import { FallState } from './fall_state';
+import { DoubleJumpState } from './double_jump_state';
+import { KnockDownState } from './knock_down_state';
 import { FacingRightState } from './facing_right_state';
 import { FacingLeftState } from './facing_left_state';
 import { GAME_CONST } from '../../game_const';
@@ -15,6 +17,8 @@ class StateFacotry {
     this.stateList.set(GAME_CONST.STATES.RUN, RunState);
     this.stateList.set(GAME_CONST.STATES.JUMP, JumpState);
     this.stateList.set(GAME_CONST.STATES.FALL, FallState);
+    this.stateList.set(GAME_CONST.STATES.DOUBLE_JUMP, DoubleJumpState);
+    this.stateList.set(GAME_CONST.STATES.KNOCK_DOWN, KnockDownState);
     this.stateList.set(GAME_CONST.STATES.FACING_RIGHT, FacingRightState);
     this.stateList.set(GAME_CONST.STATES.FACING_LEFT, FacingLeftState);
   }

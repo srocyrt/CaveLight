@@ -19,14 +19,6 @@ export class GameScene extends Phaser.Scene {
     this.map = this.createMap();
     this.createCreature();
     this.addCollider();
-    /*
-    // Create level map
-    let map = this.add.tilemap('level_0');
-    let tile = map.addTilesetImage('tiles2x');
-    let tile_transparet = map.addTilesetImage('tiles2x_transparent');
-    let layerBot = map.createStaticLayer('platform', [tile, tile_transparet]);
-    layerBot.setCollisionByProperty({ collides: true });
-    */
 
     this.cameras.main.setBounds(
       0,
@@ -35,13 +27,12 @@ export class GameScene extends Phaser.Scene {
       this.map.heightInPixels
     );
     this.cameras.main.startFollow(this.adventurer, true, 1, 1, 0, 40);
-    //console.log(this.cameras.roundPixels);
   }
   create() {
+    // this.slowMotion(10);
     console.log('game start');
   }
   update() {
-    //    console.log(this.bg.x, this.bg.y, this.adventurer.x, this.adventurer.y);
     this.backgroundList.forEach(element => element.update());
     this.creatureList.forEach(element => element.update());
   }
@@ -51,6 +42,7 @@ export class GameScene extends Phaser.Scene {
     let texture = this.textures.get('background');
     for (let name of texture.getFrameNames()) {
       let data = texture.get(name).customData.parallax;
+      if (name == 'hill') continue;
       let bg = new ParallaxBackground(
         this,
         'background',
@@ -63,12 +55,13 @@ export class GameScene extends Phaser.Scene {
   }
   createMap() {
     let map = this.add.tilemap('tutorial');
-    let tiles = map.addTilesetImage('tiles');
+    let tiles = map.addTilesetImage('tiles', 'tiles', 8, 8, 1, 2);
     let BackgroundLayer = map.createStaticLayer('Background', [tiles]);
     let platformLayer = map.createStaticLayer('Platform', [tiles]);
     let decorationLayer = map.createStaticLayer('Decoration', [tiles]);
     let dangerLayer = map.createStaticLayer('Danger', [tiles]);
     platformLayer.setCollisionByProperty({ collide: true });
+    // dangerLayer.body.onOverlap = true;
     dangerLayer.setCollisionByProperty({ danger: true });
     this.platform.push(platformLayer);
     this.danger.push(dangerLayer);
@@ -85,8 +78,18 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(c, p);
       }
       for (const d of this.danger) {
-        this.physics.add.collider(c, d);
+        this.physics.add.collider(c, d, () => console.log('B'));
       }
     }
+  }
+  slowMotion(scale) {
+    for (let c of this.creatureList) {
+      c.anims.setTimeScale(1 / scale);
+    }
+    this.physics.world.timeScale = scale;
+    this.time.timeScale = 1 / scale;
+    // scale all tweens clocks timers...
+    //this.adventurer.behaviorFSM.lastJumpTimer.setTimeScale(1 / scale);
+    //this.adventurer.behaviorFSM.lastOnGroundTimer.setTimeScale(1 / scale);
   }
 }

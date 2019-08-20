@@ -1,18 +1,16 @@
 import { State } from './state';
 import { GAME_CONST, ANIMATION_CONST } from '../../game_const';
 
-export class JumpState extends State {
+export class DoubleJumpState extends State {
   constructor(stateName, owner) {
     super(stateName, owner);
   }
   enter(input) {
-    Phaser.Input.Keyboard.JustDown(input.cursors.space);
-    input.extraJump = 1;
-    // half v if release space
-    this.isVelocityHalved = false;
-    // animation framerate
-    this.owner.body.velocity.y = -GAME_CONST.ADVENTURER_CONST.JUMP_VELOCITY;
-    this.double_jump_listen = false;
+    // todo animation framerate
+    input.extraJump = 0;
+    this.owner.playAnimation(ANIMATION_CONST.JUMP);
+    this.owner.body.velocity.y = -GAME_CONST.ADVENTURER_CONST
+      .DOUBLE_JUMP_VELOCITY;
     this.isAnticipationState = true;
     this.isJumpState = false;
     this.isMidAirState = false;
@@ -26,17 +24,12 @@ export class JumpState extends State {
     }
     this.owner.body.velocity.x += acceleration / 10;
     this.owner.body.velocity.x *= GAME_CONST.ADVENTURER_CONST.DAMPING;
-    // halve velocity after space releasing
-    if (input.cursors.space.isUp && !this.isVelocityHalved) {
-      this.isVelocityHalved = true;
-      this.owner.body.velocity.y /= 3 / 2;
-    }
-    // smooth jump animation
+    // smooth animation
     if (this.isAnticipationState) {
-      this.owner.playAnimation(ANIMATION_CONST.JUMP_ANTICIPATION);
+      this.owner.playAnimation(ANIMATION_CONST.DOUBLE_JUMP_ANTICIPATION);
       if (
         this.owner.body.velocity.y >=
-        -GAME_CONST.ADVENTURER_CONST.JUMP_VELOCITY * 0.85
+        -GAME_CONST.ADVENTURER_CONST.DOUBLE_JUMP_VELOCITY * 0.5
       ) {
         this.isAnticipationState = false;
         this.isJumpState = true;
@@ -45,9 +38,8 @@ export class JumpState extends State {
       this.owner.playAnimation(ANIMATION_CONST.JUMP);
       if (
         this.owner.body.velocity.y >=
-        -GAME_CONST.ADVENTURER_CONST.JUMP_VELOCITY * 0.4
+        -GAME_CONST.ADVENTURER_CONST.DOUBLE_JUMP_VELOCITY * 0.1
       ) {
-        this.double_jump_listen = true;
         this.isJumpState = false;
         this.isMidAirState = true;
       }

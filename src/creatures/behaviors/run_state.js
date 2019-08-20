@@ -1,12 +1,12 @@
 import { State } from './state';
-import { GAME_CONST } from '../../game_const';
+import { GAME_CONST, ANIMATION_CONST } from '../../game_const';
 
 export class RunState extends State {
   constructor(stateName, owner) {
     super(stateName, owner);
   }
   enter() {
-    this.owner.playAnimation(GAME_CONST.ANIMATIONS.RUN);
+    this.owner.playAnimation(ANIMATION_CONST.RUN);
   }
   update() {
     const sign = this.owner.flipX ? -1 : 1;

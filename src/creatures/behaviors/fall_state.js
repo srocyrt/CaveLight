@@ -1,12 +1,12 @@
 import { State } from './state';
-import { GAME_CONST } from '../../game_const';
+import { GAME_CONST, ANIMATION_CONST } from '../../game_const';
 
 export class FallState extends State {
   constructor(stateName, owner) {
     super(stateName, owner);
   }
   enter() {
-    this.owner.playAnimation(GAME_CONST.ANIMATIONS.FALL);
+    this.owner.playAnimation(ANIMATION_CONST.FALL);
   }
   update(input) {
     let acceleration = 0;
