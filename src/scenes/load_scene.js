@@ -1,6 +1,8 @@
 import { GAME_CONST, ANIMATION_CONST } from '../game_const';
 import background_PNG from '../assets/background/background.png';
 import background_JSON from '../assets/background/background.json';
+import menu_scene_PNG from '../assets/sprite/menu_scene.png';
+import menu_scene_JSON from '../assets/sprite/menu_scene.json';
 import adventurer_PNG from '../assets/sprite/sprite.png';
 import adventurer_JSON from '../assets/sprite/sprite.json';
 import slime_blue_PNG from '../assets/sprite/slime_blue.png';
@@ -19,7 +21,12 @@ export class LoadScene extends Phaser.Scene {
       textureURL: background_PNG,
       atlasURL: background_JSON
     });
-
+    // menu
+    this.load.atlas({
+      key: 'menuScene',
+      textureURL: menu_scene_PNG,
+      atlasURL: menu_scene_JSON
+    });
     // character sprite
     this.load.atlas({
       key: 'adventurer',
@@ -42,6 +49,27 @@ export class LoadScene extends Phaser.Scene {
   create() {
     // TODO: Add loading bar
     // create animation
+    // menu
+    this.anims.create({
+      key: `${GAME_CONST.SCENES.MENU}_play`,
+      frames: this.anims.generateFrameNames(GAME_CONST.SCENES.MENU, {
+        prefix: 'play_',
+        start: 0,
+        end: 1
+      }),
+      frameRate: 4,
+      repeat: -1
+    });
+    this.anims.create({
+      key: `${GAME_CONST.SCENES.MENU}_settings`,
+      frames: this.anims.generateFrameNames(GAME_CONST.SCENES.MENU, {
+        prefix: 'settings_',
+        start: 0,
+        end: 1
+      }),
+      frameRate: 4,
+      repeat: -1
+    });
     // adventurer idle
     this.anims.create({
       key: `${GAME_CONST.CREATURES.ADVENTURER}_${ANIMATION_CONST.IDLE}`,
@@ -138,8 +166,8 @@ export class LoadScene extends Phaser.Scene {
         start: 0,
         end: 1
       }),
-      frameRate: 30,
-      repeat: -1
+      frameRate: 18,
+      repeat: 0
     });
     // adventurer attack A
     this.anims.create({
@@ -149,8 +177,19 @@ export class LoadScene extends Phaser.Scene {
         start: 2,
         end: 4
       }),
-      frameRate: 6,
-      repeat: -1
+      frameRate: 24,
+      repeat: 0
+    });
+    // adventurer attack A follow through
+    this.anims.create({
+      key: `${GAME_CONST.CREATURES.ADVENTURER}_${ANIMATION_CONST.ATTACK_A_FOLLOW_THROUGH}`,
+      frames: this.anims.generateFrameNames(GAME_CONST.CREATURES.ADVENTURER, {
+        prefix: 'adventurer-attack2-0',
+        start: 0,
+        end: 1
+      }),
+      frameRate: 16,
+      repeat: 0
     });
     // adventurer attack B anticipation
     this.anims.create({
@@ -160,8 +199,8 @@ export class LoadScene extends Phaser.Scene {
         start: 0,
         end: 2
       }),
-      frameRate: 30,
-      repeat: -1
+      frameRate: 18,
+      repeat: 0
     });
     // adventurer attack B
     this.anims.create({
@@ -171,8 +210,19 @@ export class LoadScene extends Phaser.Scene {
         start: 3,
         end: 5
       }),
-      frameRate: 6,
-      repeat: -1
+      frameRate: 24,
+      repeat: 0
+    });
+    // adventurer attack B follow through
+    this.anims.create({
+      key: `${GAME_CONST.CREATURES.ADVENTURER}_${ANIMATION_CONST.ATTACK_B_FOLLOW_THROUGH}`,
+      frames: this.anims.generateFrameNames(GAME_CONST.CREATURES.ADVENTURER, {
+        prefix: 'adventurer-attack1-0',
+        start: 0,
+        end: 1
+      }),
+      frameRate: 16,
+      repeat: 0
     });
     // adventurer attack C anticipation
     this.anims.create({
@@ -182,8 +232,8 @@ export class LoadScene extends Phaser.Scene {
         start: 0,
         end: 1
       }),
-      frameRate: 30,
-      repeat: -1
+      frameRate: 18,
+      repeat: 0
     });
     // adventurer attack C
     this.anims.create({
@@ -193,8 +243,19 @@ export class LoadScene extends Phaser.Scene {
         start: 2,
         end: 4
       }),
-      frameRate: 6,
-      repeat: -1
+      frameRate: 24,
+      repeat: 0
+    });
+    // adventurer attack C follow through
+    this.anims.create({
+      key: `${GAME_CONST.CREATURES.ADVENTURER}_${ANIMATION_CONST.ATTACK_C_FOLLOW_THROUGH}`,
+      frames: this.anims.generateFrameNames(GAME_CONST.CREATURES.ADVENTURER, {
+        prefix: 'adventurer-attack3-0',
+        start: 4,
+        end: 4
+      }),
+      frameRate: 16,
+      repeat: 0
     });
     // adventurer air attack A anticipation
     this.anims.create({
@@ -307,6 +368,6 @@ export class LoadScene extends Phaser.Scene {
       repeat: -1
     });
 
-    this.scene.start(GAME_CONST.SCENES.GAME);
+    this.scene.start(GAME_CONST.SCENES.MENU);
   }
 }

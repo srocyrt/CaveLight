@@ -11,7 +11,12 @@ export class FacingFSM extends StateMachine {
       GAME_CONST.STATES.FACING_RIGHT,
       GAME_CONST.STATES.FACING_LEFT,
       input => {
-        if (input.cursors.right.isUp && input.cursors.left.isDown) return true;
+        if (
+          input.cursors.right.isUp &&
+          input.cursors.left.isDown &&
+          !this.owner.behaviorFSM.state.isLocked
+        )
+          return true;
         return false;
       }
     );
@@ -19,7 +24,12 @@ export class FacingFSM extends StateMachine {
       GAME_CONST.STATES.FACING_LEFT,
       GAME_CONST.STATES.FACING_RIGHT,
       input => {
-        if (input.cursors.left.isUp && input.cursors.right.isDown) return true;
+        if (
+          input.cursors.left.isUp &&
+          input.cursors.right.isDown &&
+          !this.owner.behaviorFSM.state.isLocked
+        )
+          return true;
         return false;
       }
     );

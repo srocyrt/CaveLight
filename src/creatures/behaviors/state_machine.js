@@ -40,6 +40,7 @@ export class StateMachine {
         this.state.exit();
         this.state = stateFactory.create(to, this.owner);
         this.state.enter(this.input);
+        break; //
       }
     }
     this.state.update(this.input);

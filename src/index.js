@@ -1,13 +1,14 @@
 import Phaser from 'phaser';
 import { GAME_CONST } from './game_const';
 import { LoadScene } from './scenes/load_scene';
+import { MenuScene } from './scenes/menu_scene';
 import { GameScene } from './scenes/game_scene';
 
 let config = {
   width: GAME_CONST.CONFIGS.GAME_WIDTH,
   height: GAME_CONST.CONFIGS.GAME_HEIGHT,
   zoom: 3,
-  scene: [LoadScene, GameScene],
+  scene: [LoadScene, MenuScene, GameScene],
   render: {
     pixelArt: true
   },

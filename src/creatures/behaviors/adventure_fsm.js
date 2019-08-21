@@ -11,6 +11,9 @@ export class AdventurerFSM extends StateMachine {
     this.addState(GAME_CONST.STATES.FALL);
     this.addState(GAME_CONST.STATES.DOUBLE_JUMP);
     this.addState(GAME_CONST.STATES.KNOCK_DOWN);
+    this.addState(GAME_CONST.STATES.ATTACK_A);
+    this.addState(GAME_CONST.STATES.ATTACK_B);
+    this.addState(GAME_CONST.STATES.ATTACK_C);
     // IDLE
     this.addTransition(GAME_CONST.STATES.IDLE, GAME_CONST.STATES.RUN, input => {
       if (input.cursors.left.isDown || input.cursors.right.isDown) return true;
@@ -20,7 +23,7 @@ export class AdventurerFSM extends StateMachine {
       GAME_CONST.STATES.IDLE,
       GAME_CONST.STATES.JUMP,
       input => {
-        if (input.cursors.space.isDown || input.jumpToleration) return true;
+        if (input.cursors.up.isDown || input.jumpToleration) return true;
         return false;
       }
     );
@@ -32,13 +35,21 @@ export class AdventurerFSM extends StateMachine {
         return false;
       }
     );
+    this.addTransition(
+      GAME_CONST.STATES.IDLE,
+      GAME_CONST.STATES.ATTACK_A,
+      input => {
+        if (Phaser.Input.Keyboard.JustDown(input.cursors.space)) return true;
+        return false;
+      }
+    );
     // RUN
     this.addTransition(GAME_CONST.STATES.RUN, GAME_CONST.STATES.IDLE, input => {
       if (input.cursors.left.isUp && input.cursors.right.isUp) return true;
       return false;
     });
     this.addTransition(GAME_CONST.STATES.RUN, GAME_CONST.STATES.JUMP, input => {
-      if (input.cursors.space.isDown || input.jumpToleration) return true;
+      if (input.cursors.up.isDown || input.jumpToleration) return true;
       return false;
     });
     this.addTransition(GAME_CONST.STATES.RUN, GAME_CONST.STATES.FALL, input => {
@@ -60,7 +71,7 @@ export class AdventurerFSM extends StateMachine {
       (input, state) => {
         if (
           state.double_jump_listen &&
-          Phaser.Input.Keyboard.JustDown(this.input.cursors.space) &&
+          Phaser.Input.Keyboard.JustDown(this.input.cursors.up) &&
           input.extraJump > 0
         )
           return true;
@@ -92,10 +103,22 @@ export class AdventurerFSM extends StateMachine {
     });
     this.addTransition(
       GAME_CONST.STATES.FALL,
+      GAME_CONST.STATES.JUMP,
+      input => {
+        if (
+          (input.cursors.up.isDown || input.jumpToleration) &&
+          input.edgeToleration
+        )
+          return true;
+        return false;
+      }
+    );
+    this.addTransition(
+      GAME_CONST.STATES.FALL,
       GAME_CONST.STATES.DOUBLE_JUMP,
       input => {
         if (
-          Phaser.Input.Keyboard.JustDown(this.input.cursors.space) &&
+          Phaser.Input.Keyboard.JustDown(this.input.cursors.up) &&
           input.extraJump > 0
         )
           return true;
@@ -109,6 +132,80 @@ export class AdventurerFSM extends StateMachine {
       GAME_CONST.STATES.FALL,
       input => {
         if (this.owner.body.velocity.y >= 0) return true;
+        return false;
+      }
+    );
+
+    // attack_a
+    this.addTransition(
+      GAME_CONST.STATES.ATTACK_A,
+      GAME_CONST.STATES.IDLE,
+      (input, state) => {
+        if (state.isFinished) return true;
+        return false;
+      }
+    );
+    this.addTransition(
+      GAME_CONST.STATES.ATTACK_A,
+      GAME_CONST.STATES.ATTACK_B,
+      (input, state) => {
+        if (state.isCombo && !state.isLocked) return true;
+        return false;
+      }
+    );
+    this.addTransition(
+      GAME_CONST.STATES.ATTACK_A,
+      GAME_CONST.STATES.RUN,
+      (input, state) => {
+        if (
+          (Phaser.Input.Keyboard.JustDown(input.cursors.left) ||
+            Phaser.Input.Keyboard.JustDown(input.cursors.right)) &&
+          !state.isLocked
+        )
+          return true;
+        return false;
+      }
+    );
+    this.addTransition(
+      GAME_CONST.STATES.ATTACK_A,
+      GAME_CONST.STATES.JUMP,
+      (input, state) => {
+        if (Phaser.Input.Keyboard.JustDown(input.cursors.up) && !state.isLocked)
+          return true;
+        return false;
+      }
+    );
+    // attack_b
+    this.addTransition(
+      GAME_CONST.STATES.ATTACK_B,
+      GAME_CONST.STATES.ATTACK_C,
+      (input, state) => {
+        if (state.isCombo && state.isFinished) return true;
+        return false;
+      }
+    );
+    this.addTransition(
+      GAME_CONST.STATES.ATTACK_B,
+      GAME_CONST.STATES.IDLE,
+      (input, state) => {
+        if (state.isFinished) return true;
+        return false;
+      }
+    );
+    // attack_c wrong cant' turn to idle idle is
+    this.addTransition(
+      GAME_CONST.STATES.ATTACK_C,
+      GAME_CONST.STATES.IDLE,
+      (input, state) => {
+        if (state.isCombo && state.isFinished) return true;
+        return false;
+      }
+    );
+    this.addTransition(
+      GAME_CONST.STATES.ATTACK_C,
+      GAME_CONST.STATES.IDLE,
+      (input, state) => {
+        if (state.isFinished) return true;
         return false;
       }
     );
@@ -132,7 +229,7 @@ export class AdventurerFSM extends StateMachine {
     };
     // lastJump
     this.lastJumpTimer = this.scene.time.addEvent();
-    this.scene.cursors.space.on('up', () => {
+    this.scene.cursors.up.on('up', () => {
       this.input.jumpToleration = true;
       this.lastJumpTimer.remove();
       this.lastJumpTimer = this.scene.time.addEvent({
@@ -150,7 +247,7 @@ export class AdventurerFSM extends StateMachine {
     if (onGround) this.input.extraJump = 1;
     // lastOnGround - on land
     if (!this.onGoundBefore && onGround) {
-      this.input.lastOnGround = true;
+      this.input.edgeToleration = true;
     }
     // lastOnGround - on take-off
     if (this.onGoundBefore && !onGround) {
@@ -160,7 +257,7 @@ export class AdventurerFSM extends StateMachine {
       });
     }
     this.onGoundBefore = onGround;
-    // space just down
+    // up just down
     // take damage
     // this.
   }

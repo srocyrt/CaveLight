@@ -29,7 +29,7 @@ export class GameScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.adventurer, true, 1, 1, 0, 40);
   }
   create() {
-    // this.slowMotion(10);
+    // this.slowMotion(20);
     console.log('game start');
   }
   update() {

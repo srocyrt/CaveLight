@@ -6,9 +6,9 @@ export class JumpState extends State {
     super(stateName, owner);
   }
   enter(input) {
-    Phaser.Input.Keyboard.JustDown(input.cursors.space);
+    Phaser.Input.Keyboard.JustDown(input.cursors.up);
     input.extraJump = 1;
-    // half v if release space
+    // half v if release up
     this.isVelocityHalved = false;
     // animation framerate
     this.owner.body.velocity.y = -GAME_CONST.ADVENTURER_CONST.JUMP_VELOCITY;
@@ -26,8 +26,8 @@ export class JumpState extends State {
     }
     this.owner.body.velocity.x += acceleration / 10;
     this.owner.body.velocity.x *= GAME_CONST.ADVENTURER_CONST.DAMPING;
-    // halve velocity after space releasing
-    if (input.cursors.space.isUp && !this.isVelocityHalved) {
+    // halve velocity after up releasing
+    if (input.cursors.up.isUp && !this.isVelocityHalved) {
       this.isVelocityHalved = true;
       this.owner.body.velocity.y /= 3 / 2;
     }
