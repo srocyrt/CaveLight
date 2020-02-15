@@ -113,6 +113,6 @@
         "webpack-bundle-analyzer": "3.4.1",
         "webpack-cli": "3.3.6",
         "webpack-dev-server": "^3.8.0",
-        "yarn": "1.17.3"
+        "yarn": "1.22.0"
     }
 }
